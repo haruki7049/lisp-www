@@ -24,12 +24,25 @@
         lisp-www = lisp.buildASDFSystem {
           inherit pname version src lispLibs;
         };
+
+        runtime = pkgs.sbcl.withPackages (ps: [ ps.woo lisp-www ]);
+
+        runner = pkgs.writeScriptBin "runner"
+        ''
+          #! ${runtime}/bin/sbcl --script
+          (load (sb-ext:posix-getenv "ASDF"))
+          (asdf:load-system 'woo)
+          (asdf:load-system 'lisp-www)
+
+          (write-line "Web server, serves 'Hello, World' to http://localhost:5000")
+          (lisp-www:main)
+        '';
       in
       {
         formatter = treefmtEval.config.build.wrapper;
 
         packages = {
-          inherit lisp-www;
+          inherit lisp-www runner;
           default = lisp-www;
         };
 
