@@ -47,7 +47,7 @@
         };
 
         checks = {
-          inherit lisp-www;
+          inherit lisp-www runtime runner;
           formatting = treefmtEval.config.build.check self;
         };
 
