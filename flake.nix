@@ -43,7 +43,7 @@
 
         packages = {
           inherit lisp-www runner;
-          default = lisp-www;
+          default = runner;
         };
 
         checks = {
