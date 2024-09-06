@@ -27,15 +27,23 @@
 
         runtime = pkgs.sbcl.withPackages (ps: [ ps.woo lisp-www ]);
 
-        runner = pkgs.writeScriptBin "runner"
-          ''
-            #! ${runtime}/bin/sbcl --script
-            (load (sb-ext:posix-getenv "ASDF"))
-            (asdf:load-system 'woo)
-            (asdf:load-system 'lisp-www)
+        runner =
+          let
+            dependencies = [
+              "woo"
+              "lisp-www"
+            ];
 
-            (lisp-www:main)
-          '';
+            asdf-loader = lib.strings.concatLines (map (x: "(asdf:load-system '${x})") dependencies);
+          in
+          pkgs.writeScriptBin "runner"
+            ''
+              #! ${runtime}/bin/sbcl --script
+              (load (sb-ext:posix-getenv "ASDF"))
+              ${asdf-loader}
+
+              (lisp-www:main)
+            '';
       in
       {
         formatter = treefmtEval.config.build.wrapper;
