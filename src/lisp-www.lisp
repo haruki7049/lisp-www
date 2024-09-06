@@ -7,6 +7,7 @@
 
 (defun main
   ()
+  (write-line "Web server, serves 'Hello, World' to http://localhost:5000")
   (woo:run
     (lambda (env)
       (declare (ignore env))

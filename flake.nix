@@ -34,7 +34,6 @@
             (asdf:load-system 'woo)
             (asdf:load-system 'lisp-www)
 
-            (write-line "Web server, serves 'Hello, World' to http://localhost:5000")
             (lisp-www:main)
           '';
       in
