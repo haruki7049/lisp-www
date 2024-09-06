@@ -1,5 +1,5 @@
 {
   projectRootFile = "flake.nix";
-  programs.nixpkgs-fmt.enable = true;
+  programs.nixfmt-rfc-style.enable = true;
   programs.actionlint.enable = true;
 }
