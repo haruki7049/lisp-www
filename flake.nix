@@ -27,8 +27,8 @@
 
           devShells.default = pkgs.mkShell {
             packages = [
-              # SBCL
-              pkgs.sbcl
+              # CLASP
+              pkgs.clasp-common-lisp
 
               # LSP
               pkgs.nil
